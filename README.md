@@ -1,32 +1,34 @@
-# DeepSeek 余额 · CloudCLI 插件
+# DeepSeek Balance · CloudCLI Plugin
+
+**English** | [简体中文](README.zh-CN.md)
 
 ![preview](preview.png)
 
-在 CloudCLI UI 里加一个“用量信息”标签页，显示 DeepSeek 账户余额，数据来自 DeepSeek 官方。每 5 分钟自动刷新，也可以点右上角 `↻ refresh` 手动刷新。
+Adds a **Usage** tab to CloudCLI UI that shows your DeepSeek account balance, sourced from the official DeepSeek API. The balance refreshes automatically every 5 minutes; you can also click `↻ refresh` in the top-right corner to refresh it manually.
 
-## API key 来源（按优先级）
+## API key source (in priority order)
 
-1. 环境变量 `DEEPSEEK_API_KEY`
-2. 环境变量 `ANTHROPIC_AUTH_TOKEN`
-3. `~/.claude/settings.json` 的 `env.ANTHROPIC_AUTH_TOKEN`
+1. `DEEPSEEK_API_KEY` environment variable
+2. `ANTHROPIC_AUTH_TOKEN` environment variable
+3. `env.ANTHROPIC_AUTH_TOKEN` in `~/.claude/settings.json`
 
-key 只在插件后端进程内存和请求头里出现。
+The key only ever exists in the plugin backend process memory and request headers.
 
-## 构建
+## Build
 
 ```bash
 npm install
 npm run build
 ```
 
-## 安装到 CloudCLI
+## Install in CloudCLI
 
-把整个目录（至少包含 `manifest.json`、`dist/`、`icon.svg`）复制到：
+Copy the whole directory (at minimum `manifest.json`, `dist/`, and `icon.svg`) to:
 
 ```
 ~/.claude-code-ui/plugins/deepseek-balance
 ```
 
-然后刷新 CloudCLI 页面，在标签页里启用“DeepSeek 余额”。
+Then refresh the CloudCLI page and open the **DeepSeek 余额** tab.
 
-也可以把本项目推到 Git 仓库，在 `Settings → Plugins` 里粘贴仓库 URL 安装。
+Alternatively, push this project to a Git repository and install it from **Settings → Plugins** by pasting the repository URL.
