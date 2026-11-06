@@ -118,12 +118,20 @@ function buttonStyle(c: ThemeColors): string {
   return `flex-shrink:0;margin-left:16px;padding:5px 12px;background:transparent;border:1px solid ${c.border};color:${c.muted};font-family:${MONO};font-size:0.7rem;border-radius:3px;cursor:pointer;letter-spacing:0.05em;transition:all 0.15s;`;
 }
 
+function linkButtonStyle(c: ThemeColors): string {
+  return `display:inline-block;flex-shrink:0;padding:4px 10px;background:transparent;border:1px solid ${c.accent};color:${c.accent};font-family:${MONO};font-size:0.68rem;border-radius:3px;text-decoration:none;letter-spacing:0.05em;line-height:1.4;transition:all 0.15s;white-space:nowrap;`;
+}
+
 function headerHtml(c: ThemeColors): string {
   return `
     <div class="dsb-up" style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px">
       <div style="min-width:0;flex:1">
-        <div style="font-size:1.3rem;font-weight:700;letter-spacing:-0.02em">
-          用量信息
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div style="font-size:1.3rem;font-weight:700;letter-spacing:-0.02em">用量信息</div>
+          <a href="https://platform.deepseek.com/usage" target="_blank" rel="noopener noreferrer"
+            style="${linkButtonStyle(c)}"
+            onmouseover="this.style.background='${c.accent}';this.style.color='${c.surface}'"
+            onmouseout="this.style.background='transparent';this.style.color='${c.accent}'">查看详情</a>
         </div>
         <div style="font-size:0.7rem;color:${c.muted};margin-top:4px;line-height:1.5">
           所有日期均按 GMT+8 时间显示，数据可能有 5 分钟延迟。
@@ -185,7 +193,7 @@ export function mount(container: HTMLElement, api: PluginAPI): void {
 
     root.innerHTML = `
       ${headerHtml(c)}
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
         ${cards}
       </div>`;
     wireButtons();
@@ -211,20 +219,30 @@ export function mount(container: HTMLElement, api: PluginAPI): void {
     const primary = pickPrimary(data.balance_infos);
     const currency = primary?.currency || 'CNY';
     const hasBalance = primary !== null;
-    const boxes: [string, number][] = [
-      ['总余额', primary ? parseAmount(primary.total_balance) : 0],
-      ['充值余额', primary ? parseAmount(primary.topped_up_balance) : 0],
-      ['赠送余额', primary ? parseAmount(primary.granted_balance) : 0],
+    const boxes: [string, number, string | null][] = [
+      ['总余额', primary ? parseAmount(primary.total_balance) : 0, 'https://platform.deepseek.com/top_up'],
+      ['充值余额', primary ? parseAmount(primary.topped_up_balance) : 0, null],
+      ['赠送余额', primary ? parseAmount(primary.granted_balance) : 0, null],
     ];
 
     const cards = boxes
       .map(
-        ([label, value], i) => `
-      <div class="dsb-up" style="background:${c.surface};border:1px solid ${c.border};border-radius:3px;padding:18px;animation-delay:${i * 0.06}s">
-        <div id="dsb-m-${i}" style="font-size:1.9rem;font-weight:700;letter-spacing:-0.04em;line-height:1;color:${c.text}">
-          ${hasBalance ? formatMoney(currency, value) : '—'}
+        ([label, value, action], i) => `
+      <div class="dsb-up" style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:${c.surface};border:1px solid ${c.border};border-radius:3px;padding:18px;animation-delay:${i * 0.06}s">
+        <div style="min-width:0">
+          <div style="font-size:1.9rem;font-weight:700;letter-spacing:-0.04em;line-height:1;color:${c.text}">
+            ${hasBalance ? formatMoney(currency, value) : '—'}
+          </div>
+          <div style="font-size:0.65rem;color:${c.muted};margin-top:6px;letter-spacing:0.1em">${label}</div>
         </div>
-        <div style="font-size:0.65rem;color:${c.muted};margin-top:6px;letter-spacing:0.1em">${label}</div>
+        ${
+          action
+            ? `<a href="${action}" target="_blank" rel="noopener noreferrer"
+                style="${linkButtonStyle(c)}margin-top:2px;"
+                onmouseover="this.style.background='${c.accent}';this.style.color='${c.surface}'"
+                onmouseout="this.style.background='transparent';this.style.color='${c.accent}'">去充值</a>`
+            : ''
+        }
       </div>`,
       )
       .join('');
@@ -264,7 +282,7 @@ export function mount(container: HTMLElement, api: PluginAPI): void {
       ${headerHtml(c)}
       ${unavailableHtml}
       ${refreshErrorHtml}
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
         ${cards}
       </div>
       ${extrasHtml}
