@@ -10,7 +10,7 @@
 2. 环境变量 `ANTHROPIC_AUTH_TOKEN`
 3. `~/.claude/settings.json` 的 `env.ANTHROPIC_AUTH_TOKEN`
 
-key 只在插件后端进程内存和请求头里出现，不会写日志，也不会返回给前端。
+key 只在插件后端进程内存和请求头里出现。
 
 ## 构建
 
