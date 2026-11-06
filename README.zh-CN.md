@@ -32,3 +32,7 @@ npm run build
 然后刷新 CloudCLI 页面，在标签页里启用“DeepSeek 余额”。
 
 也可以把本项目推到 Git 仓库，在 `Settings → Plugins` 里粘贴仓库 URL 安装。
+
+## 许可证
+
+本项目采用 [MIT 协议](LICENSE)。

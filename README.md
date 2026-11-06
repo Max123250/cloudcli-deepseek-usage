@@ -32,3 +32,7 @@ Copy the whole directory (at minimum `manifest.json`, `dist/`, and `icon.svg`) t
 Then refresh the CloudCLI page and open the **DeepSeek 余额** tab.
 
 Alternatively, push this project to a Git repository and install it from **Settings → Plugins** by pasting the repository URL.
+
+## License
+
+Released under the [MIT License](LICENSE).
