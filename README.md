@@ -2,13 +2,7 @@
 
 ![preview](preview.png)
 
-在 CloudCLI UI 里加一个“用量信息”标签页，显示 DeepSeek 账户余额：
-
-- 总余额
-- 充值余额
-- 赠送余额
-
-数据来自 DeepSeek 官方 `GET https://api.deepseek.com/user/balance`，每 5 分钟自动刷新，也可以点右上角 `↻ refresh` 手动刷新。
+在 CloudCLI UI 里加一个“用量信息”标签页，显示 DeepSeek 账户余额，数据来自 DeepSeek 官方。每 5 分钟自动刷新，也可以点右上角 `↻ refresh` 手动刷新。
 
 ## API key 来源（按优先级）
 
