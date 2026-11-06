@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>DeepSeek Balance plugin harness</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #fafaf9; }
+  </style>
+</head>
+<body>
+  <div id="root" style="height:100vh"></div>
+  <script type="module">
+    import { mount } from '../dist/index.js';
+
+    const data = {
+      is_available: true,
+      balance_infos: [
+        { currency: 'CNY', total_balance: '29.99', granted_balance: '0.14', topped_up_balance: '29.84' },
+      ],
+      fetched_at: new Date().toISOString(),
+    };
+
+    const api = {
+      context: { theme: 'light', project: null, session: null },
+      onContextChange: () => () => {},
+      rpc: async () => data,
+    };
+
+    mount(document.getElementById('root'), api);
+  </script>
+</body>
+</html>

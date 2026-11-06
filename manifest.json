@@ -1,0 +1,13 @@
+{
+  "name": "deepseek-balance",
+  "displayName": "DeepSeek 余额",
+  "version": "1.0.0",
+  "description": "查看 DeepSeek 账户余额：总余额、充值余额、赠送余额。",
+  "author": "max",
+  "icon": "icon.svg",
+  "type": "module",
+  "slot": "tab",
+  "entry": "dist/index.js",
+  "server": "dist/server.js",
+  "permissions": []
+}

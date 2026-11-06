@@ -1,0 +1,21 @@
+{
+  "name": "cloudcli-deepseek-usage",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "CloudCLI plugin that shows DeepSeek account balance and usage snapshot",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsc --watch"
+  },
+  "//dependencies": "Build tooling lives in dependencies, not devDependencies: CloudCLI may install plugins with NODE_ENV=production.",
+  "dependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
